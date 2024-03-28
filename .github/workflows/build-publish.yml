@@ -45,14 +45,6 @@ jobs:
            echo $ACCESS_TOKEN
            printenv
            
-       - name: Get ID Token (cURL method)
-         id: idtoken
-         run: |
-           ID_TOKEN=$(curl -sLS -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-           "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=jfrog-github" | jq .value | tr -d '"')
-           echo "ID_TOKEN=${ID_TOKEN}" >> $GITHUB_OUTPUT
-           echo ${ID_TOKEN}
-           
        - name: Set CLI Config
          run: jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
           
