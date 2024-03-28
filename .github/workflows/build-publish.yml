@@ -40,8 +40,9 @@ jobs:
            -H "Content-type: application/json" \
            https://incloudmaster.jfrog.io/access/api/v1/oidc/token \
            -d \
-           "{\"grant_type\": \"urn:ietf:params:oauth:grant-type:token-exchange\", \"subject_token_type\":\"urn:ietf:params:oauth:token-type:id_token\", \"subject_token\": \"$ID_TOKEN\", \"provider_name\": \"san-git-intergation\"}"
+           "{\"grant_type\": \"urn:ietf:params:oauth:grant-type:token-exchange\", \"subject_token_type\":\"urn:ietf:params:oauth:token-type:id_token\", \"subject_token\": \"$ID_TOKEN\", \"provider_name\": \"san-git-intergation\"}" | jq .access_token | tr -d '"'
            printenv
+           echo jq .access_token
            
        - name: Set CLI Config
          run: jf npm-config --global=true --repo-resolve=$PLATFORM_REPO --repo-deploy=$PLATFORM_REPO
